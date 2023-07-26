@@ -16,6 +16,7 @@ class RetentiveNetworkBlock(nn.Module):
     ):
         super(RetentiveNetworkBlock, self).__init__()
         assert d_model % num_heads == 0
+
         self.ffn = FeedForwardNetwork(
             input_dim=d_model,
             intermediate_layer_dim=ffn_intermediate_layer_dim,
@@ -42,9 +43,7 @@ class RetentiveNetworkBlock(nn.Module):
         )
 
         y = retention_scores + x
-        output = self.ffn(x) + y
-
-        # output = self.ffn(self.layer_norm_2(y)) + y
+        output = self.ffn(self.layer_norm_2(y)) + y
         return output, current_kv
 
 
@@ -75,14 +74,16 @@ class RetentiveNetwork(nn.Module):
             ]
         )
 
-    def forward(self, x, paradigm, chunk_index=0):
-        past_kvs = [None] * self.num_blocks
+    def forward(self, x, paradigm, past_kvs=None, chunk_index=0):
+        if past_kvs is None:
+            past_kvs = [None] * self.num_blocks
+
         assert paradigm in ["parallel", "recurrent", "chunkwise"]
 
         if paradigm == "recurrent" and len(x.shape) == 2:
             x.unsqueeze_(dim=1)
 
         for i, layer in enumerate(self.layers):
-            x, current_kvs = layer(x, past_kvs[i], paradigm, chunk_index=chunk_index)
+            x, current_kvs = layer(x, past_kv=past_kvs[i], paradigm=paradigm, chunk_index=chunk_index)
             past_kvs[i] = current_kvs
-        return x
+        return x, past_kvs

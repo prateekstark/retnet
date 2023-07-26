@@ -1,22 +1,17 @@
 # RetNet: A Successor to Transformer for Large Language Models
-RetNet is a cutting-edge architecture designed as a foundation for large language models. It offers significant advantages in terms of training parallelism, low-cost inference, and overall performance. This repository contains the implementation of RetNet, which aims to be a strong successor to the Transformer model.
+RetNet is a cutting-edge architecture designed as a foundation for large language models. It offers significant advantages in terms of training parallelism, low-cost inference, and overall performance. This repository contains the implementation of RetNet, which aims to be a strong successor to the Transformer model. We also implement the xPos relative positional encoding since it was used in RetNet.
 
 ## Installation
-Clone this repository to your local machine using:
-
 Make sure you have the necessary dependencies installed. Refer to the requirements.txt file for specific versions.
 
 
 ## Community Support
 We value community involvement and welcome your support for this project:
 
-Issues: Report any bugs or suggest improvements by opening an issue on GitHub.
-
-Feature Requests: Share your ideas for additional features through GitHub discussions.
-
-Pull Requests: Contribute directly to the codebase by submitting a pull request aligned with the project's goals.
-
-Spread the Word: Help us reach a broader audience by sharing this project on social media and with colleagues and friends.
+- Issues: Report any bugs or suggest improvements by opening an issue on GitHub.
+- Feature Requests: Share your ideas for additional features through GitHub discussions.
+- Pull Requests: Contribute directly to the codebase by submitting a pull request aligned with the project's goals.
+- Spread the Word: Help us reach a broader audience by sharing this project on social media and with colleagues and friends.
 
 
 ## Contributing
