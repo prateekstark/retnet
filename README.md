@@ -1,5 +1,4 @@
 # RetNet: A Successor to Transformer for Large Language Models
-
 RetNet is a cutting-edge architecture designed as a foundation for large language models. It offers significant advantages in terms of training parallelism, low-cost inference, and overall performance. This repository contains the implementation of RetNet, which aims to be a strong successor to the Transformer model.
 
 ## Installation

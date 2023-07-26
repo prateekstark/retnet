@@ -1,0 +1,1 @@
+black `find . -name '*.py'`

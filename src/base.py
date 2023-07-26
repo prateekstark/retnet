@@ -17,12 +17,21 @@ Mask D-> upper triangular matrix
 class FeedForwardNetwork(nn.Module):
     def __init__(
         self,
-        input_dim,
-        intermediate_layer_dim,
-        output_dim,
-        num_intermediate_layers=1,
-        activation="gelu",
+        input_dim: int,
+        intermediate_layer_dim: int,
+        output_dim: int,
+        num_intermediate_layers: int = 1,
+        activation: str = "gelu",
     ) -> None:
+        """
+        :param self: Represent the instance of the class
+        :param input_dim: int: Specify the size of the input to the first layer
+        :param intermediate_layer_dim: int: Specify the dimension of the intermediate layers
+        :param output_dim: int: Specify the output dimension of the feed forward network
+        :param num_intermediate_layers: int: Specify the number of intermediate layers in the network
+        :param activation: str: Specify which activation function to use
+        :return: None
+        """
         super(FeedForwardNetwork, self).__init__()
         self.layers = nn.ModuleList(
             [nn.Linear(input_dim, intermediate_layer_dim)]
@@ -33,7 +42,15 @@ class FeedForwardNetwork(nn.Module):
         if activation == "gelu":
             self.activation = nn.GELU()
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        The forward function of the model.
+
+        :param self: Access variables that belong to the class
+        :param x: torch.Tensor: Pass in the input data
+        :return: The output of the last layer
+        """
+
         for layer in self.layers:
             x = self.activation(layer(x))
         x = self.output_layer(x)
@@ -41,7 +58,23 @@ class FeedForwardNetwork(nn.Module):
 
 
 class GatedMultiScaleRetentionLayer(nn.Module):
-    def __init__(self, d_model, k_dim, v_dim, num_heads):
+    def __init__(
+        self,
+        d_model: int,
+        k_dim: int,
+        v_dim: int,
+        num_heads: int,
+        rotation_gamma: float = 0.4,
+    ) -> None:
+        """
+        :param self: Represent the instance of the class
+        :param d_model: int: Set the dimension of the model
+        :param k_dim: int: Specify the dimension of the key vector
+        :param v_dim: int: Set the dimension of the value vector
+        :param num_heads: int: Determine the number of heads in the multi-head attention
+        :return: None
+        """
+
         super(GatedMultiScaleRetentionLayer, self).__init__()
         self.gamma = 1 - torch.exp(
             (-5 - torch.arange(0, num_heads)) * torch.log(torch.tensor(2))
@@ -52,7 +85,7 @@ class GatedMultiScaleRetentionLayer(nn.Module):
         self.W_v = nn.Linear(d_model, v_dim * num_heads)
         self.num_heads = num_heads
         self.xpos = ExtrapolatablePositionEmbedding(
-            d=num_heads * k_dim, gamma=0.4, debug=False
+            d=num_heads * k_dim, gamma=rotation_gamma, debug=False
         )
         self.W_g = nn.Linear(d_model, v_dim * num_heads)
 
