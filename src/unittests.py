@@ -1,8 +1,8 @@
 import unittest
 import torch
 import random
-from base import GatedMultiScaleRetentionLayer
-from modules import RetentiveNetwork, RetentiveNetworkBlock
+from .base import GatedMultiScaleRetentionLayer
+from .modules import RetentiveNetwork, RetentiveNetworkBlock
 
 
 class TestGatedMultiScaleRetentionLayer(unittest.TestCase):

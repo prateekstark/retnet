@@ -1,7 +1,6 @@
-import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from base import FeedForwardNetwork, GatedMultiScaleRetentionLayer
+from .base import FeedForwardNetwork, GatedMultiScaleRetentionLayer
 
 
 class RetentiveNetworkBlock(nn.Module):

@@ -3,7 +3,12 @@ RetNet is a cutting-edge architecture designed as a foundation for large languag
 
 ## Installation
 Make sure you have the necessary dependencies installed. Refer to the requirements.txt file for specific versions.
-
+## Tests
+To run unit tests, please run:
+```bash
+python -m src.unittests
+```
+Before, pushing any changes, please run the tests.
 
 ## Community Support
 We value community involvement and welcome your support for this project:
